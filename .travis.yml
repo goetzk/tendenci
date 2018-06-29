@@ -51,7 +51,7 @@ script:
  - python manage.py load_tendenci2018_defaults
  - python manage.py set_setting site global siteurl 'https://www.example.com'
  # Run tests
- - python ./manage.py test --keepdb
+ - python ./manage.py test --keepdb --verbosity 2
 
 # after_success:
  # for now, run command to push source and translation files to Transifex
