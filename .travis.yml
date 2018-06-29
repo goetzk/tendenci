@@ -14,7 +14,7 @@ env:
 
 before_install:
  - sudo apt-get -qq update
- - sudo apt-get install python3-virtualenv build-essential python3-dev libevent-dev libpq-dev libjpeg8 libjpeg-dev libfreetype6 libfreetype6-dev
+ - sudo apt-get install build-essential python3-dev libevent-dev libpq-dev libjpeg8 libjpeg-dev libfreetype6 libfreetype6-dev
 
 # command to install dependencies
 install:
