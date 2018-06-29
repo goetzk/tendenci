@@ -1,4 +1,6 @@
 # Tendenci 11
+# Note that this can't be used yet - Travis only uses Ubuntu 14.04 on its servers
+# https://github.com/travis-ci/travis-ci/issues/9460
 language: python
 python:
   - "3.4"
