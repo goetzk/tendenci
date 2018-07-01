@@ -16,7 +16,7 @@ env:
 
 before_install:
  - sudo apt-get -qq update
- - sudo apt-get install build-essential python3-dev libevent-dev libpq-dev libjpeg8 libjpeg-dev libfreetype6 libfreetype6-dev
+ - sudo apt-get install build-essential python3-dev libevent-dev libpq-dev libjpeg8 libjpeg-dev libfreetype6 libfreetype6-dev flake8
 
 # command to install dependencies
 install:
@@ -53,8 +53,9 @@ script:
  - python manage.py load_tendenci2018_defaults
  - python manage.py set_setting site global siteurl 'https://www.example.com'
  # Run tests
+ - flake8
  - python ./manage.py test --keepdb --verbosity 2
 
-# after_success:
- # for now, run command to push source and translation files to Transifex
- # - ./transifex.sh
+after_success:
+ # Run command to push source and translation files to Transifex
+ - ./transifex.sh
