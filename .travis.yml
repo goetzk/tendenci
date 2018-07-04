@@ -21,9 +21,8 @@ before_install:
 # command to install dependencies
 install:
  - cd ../..
- - pwd
  - pip install -q "Django>=1.11,<2.0"
- - pip install -e goetzk/tendenci
+ - pip install -e $TRAVIS_BUILD_DIR
  - django-admin.py startproject --template=https://github.com/tendenci/tendenci-project-template/archive/tendenci11.zip testsuite_tendenci
  - cd testsuite_tendenci
  - pip install --no-binary psycopg2 -r requirements/dev.txt --upgrade
@@ -46,7 +45,6 @@ before_script:
  - echo -e "\nSITE_SETTINGS_KEY = 'p1DKDS5ySMtDcb9rv6lpW1GxnghGxGvmMAy33WbfkzZPXnDgZlVF2hRdOCLVi34'" >> conf/settings.py
  
 script:
-# TODO: do I need these three if running tests? logically no because the tests build their own tables.
  # Deploy Tendenci
  - python manage.py initial_migrate
  - python manage.py deploy
@@ -55,6 +53,7 @@ script:
  # Run tests
  - flake8
  - python ./manage.py test --keepdb --verbosity 2
+# - python ./manage.py test tendenci --keepdb --verbosity 2
 
 after_success:
  # Run command to push source and translation files to Transifex
