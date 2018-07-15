@@ -1,3 +1,17 @@
+# NOTE: Shelved project. 
+# I will come back to this when I have time to spare or Travis have updated their build environments.
+
+# But why not use the existing platform and install the required packages (Django 1.11, Python 3, T11, etc)?
+# Because then I'm not testing Tendenci in its intended environment, I'm testing in a legacy environment.
+
+# Stuff I gathered while trying to figure out a dockerised build:
+# https://raw.githubusercontent.com/bitcoin/bitcoin/master/.travis.yml
+# https://docs.travis-ci.com/user/docker/#Building-a-Docker-Image-from-a-Dockerfile
+# https://medium.com/mobileforgood/patterns-for-continuous-integration-with-docker-on-travis-ci-71857fff14c5
+# https://forums.habitat.sh/t/testing-travic-ci-workflows-locally-in-docker/630
+# https://travis-ci.org/goetzk/tendenci/jobs/401098969
+
+
 # Tendenci 11
 # Note that this can't be used yet - Travis only uses Ubuntu 14.04 on its servers
 # https://github.com/travis-ci/travis-ci/issues/9460
