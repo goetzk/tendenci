@@ -265,10 +265,6 @@ INSTALLED_APPS = [
     # Django SQL Explorer
     'tendenci.apps.explorer_extensions',
     'explorer',
-
-    # Celery Task System, must stay at the bottom of installed apps
-    'kombu.transport.django',
-    'djcelery',
 ]
 
 LOGIN_REDIRECT_URL = '/dashboard'
@@ -706,10 +702,24 @@ MESSAGE_TAGS = {
 # Celery Task System
 # ---------------------------------------------------------------------------- #
 
-import djcelery  # noqa: E402
-djcelery.setup_loader()
-BROKER_URL = "django://"
-CELERY_IS_ACTIVE = False
+# import djcelery  # noqa: E402
+# djcelery.setup_loader()
+# BROKER_URL = "django://"
+# CELERY_IS_ACTIVE = False
+
+# Tendenci objects are passed around so json isn't a great fit - further porting
+# will be required to abandon pickle.
+CELERY_RESULT_SERIALIZER = 'pickle'
+CELERY_TASK_SERIALIZER = 'pickle'
+
+# Some functionality requires a result backend.
+# TODO: Consider conditionally enabling memcache if installed
+# TODO: look at the store-in-django-db module (forgot its name atm)
+# https://docs.celeryproject.org/en/latest/userguide/configuration.html#conf-rpc-result-backend
+CELERY_RESULT_BACKEND = 'rpc://'
+
+# Setting for RPC backend
+CELERY_RESULT_PERSISTENT = True
 
 # USE_SUBPROCESS - in places like exports and long-running
 # processes that can timeout, subprocess will be used
