@@ -19,7 +19,7 @@ from django.contrib import messages
 from django.core.files.storage import default_storage
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
-from djcelery.models import TaskMeta
+from celery.result import AsyncResult
 
 from tendenci.apps.perms.decorators import is_enabled
 from tendenci.apps.theme.shortcuts import themed_response as render_to_resp
@@ -328,7 +328,7 @@ def entries_export(request, id, include_files=False):
 
 def entries_export_status(request, task_id, template_name="forms/entry_export_status.html"):
     try:
-        task = TaskMeta.objects.get(task_id=task_id)
+        task = AsyncResult(task_id)
     except TaskMeta.DoesNotExist:
         task = None
 
@@ -340,7 +340,7 @@ def entries_export_status(request, task_id, template_name="forms/entry_export_st
 
 def entries_export_check(request, task_id):
     try:
-        task = TaskMeta.objects.get(task_id=task_id)
+        task = AsyncResult(task_id)
     except TaskMeta.DoesNotExist:
         task = None
 
@@ -351,7 +351,7 @@ def entries_export_check(request, task_id):
 
 def entries_export_download(request, task_id):
     try:
-        task = TaskMeta.objects.get(task_id=task_id)
+        task = AsyncResult(task_id)
     except TaskMeta.DoesNotExist:
         task = None
 

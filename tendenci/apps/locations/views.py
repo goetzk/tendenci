@@ -18,7 +18,7 @@ from tendenci.apps.perms.decorators import admin_required
 from tendenci.apps.theme.shortcuts import themed_response as render_to_resp
 from tendenci.apps.exports.utils import run_export_task
 from tendenci.apps.files.models import File
-from djcelery.models import TaskMeta
+from celery.result import AsyncResult
 
 from tendenci.apps.locations.models import Location, LocationImport
 from tendenci.apps.locations.forms import LocationForm, LocationFilterForm
@@ -308,7 +308,7 @@ def locations_import_status(request, task_id, template_name='locations/import-co
     Checks if a location import is completed.
     """
     try:
-        task = TaskMeta.objects.get(task_id=task_id)
+        task = AsyncResult(task_id)
     except TaskMeta.DoesNotExist:
         #tasks database entries are not created at once.
         task = None

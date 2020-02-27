@@ -13,7 +13,7 @@ from tendenci.apps.wp_importer.forms import BlogImportForm
 from tendenci.apps.wp_importer.tasks import WPImportTask
 from tendenci.apps.base.http import MissingApp
 
-from djcelery.models import TaskMeta
+from celery.result import AsyncResult
 
 
 @login_required
@@ -63,7 +63,7 @@ def index(request, template_name="wp_importer/index.html"):
 @login_required
 def detail(request, task_id, template_name="wp_importer/detail.html"):
     try:
-        task = TaskMeta.objects.get(task_id=task_id)
+        task = AsyncResult(task_id)
     except TaskMeta.DoesNotExist:
         #tasks database entries are not created at once.
         #instead of raising 404 we'll assume that there will be one for

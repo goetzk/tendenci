@@ -3,7 +3,7 @@ import subprocess
 from datetime import datetime
 from datetime import date
 import time as ttime
-from djcelery.models import TaskMeta
+from celery.result import AsyncResult
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
@@ -950,7 +950,7 @@ def subscribers_import_status(request, group_slug, task_id, template_name='user_
         raise Http403
 
     try:
-        task = TaskMeta.objects.get(task_id=task_id)
+        task = AsyncResult(task_id)
     except TaskMeta.DoesNotExist:
         #tasks database entries are not created at once.
         task = None

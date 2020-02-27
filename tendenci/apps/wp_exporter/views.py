@@ -37,7 +37,7 @@ def index(request, form_class=ExportForm ,template_name="wp_exporter/index.html"
 @login_required
 def detail(request, task_id, template_name="wp_exporter/detail.html"):
     #try:
-    #    task = TaskMeta.objects.get(task_id=task_id)
+    #    task = AsyncResult(task_id)
     #except TaskMeta.DoesNotExist:
     #    #tasks database entries are not created at once.
     #    #instead of raising 404 we'll assume that there will be one for
